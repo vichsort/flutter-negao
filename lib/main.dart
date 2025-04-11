@@ -7,7 +7,14 @@ void main() {
 // stateless: estático
 // stateful: dinâmico
 
-class TelaInicial extends StatelessWidget {
+class TelaInicial extends StatefulWidget {
+  @override
+  State<TelaInicial> createState() => _TelaInicialState();
+}
+
+class _TelaInicialState extends State<TelaInicial> {
+  List<Produto> produtos = [Produto("Japones Negão", "10", "20")];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +26,27 @@ class TelaInicial extends StatelessWidget {
             icon: Icon(Icons.elderly, color: Colors.white),
           ),
         ],
-        title: Text("Jukebox Joints", style: TextStyle(color: Colors.white)),
+        title: Text("Tela Inicial", style: TextStyle(color: Colors.white)),
         leading: Icon(Icons.school, color: Colors.white),
       ),
-      body: ListView(),
+
+      body: ListView.builder(
+        itemCount: produtos.length,
+        itemBuilder: (context, index) {
+          return Text(produtos[index].nome);
+        },
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => TelaCadastro()),
-          );
+          ).then((p) {
+            setState(() {
+              produtos.add(p);
+            }); // setstate é gatilho para alteração do estado
+          });
         },
         backgroundColor: Colors.indigo,
         child: Icon(Icons.child_care_outlined, color: Colors.white),
