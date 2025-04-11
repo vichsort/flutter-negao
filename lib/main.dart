@@ -30,7 +30,7 @@ class TelaInicial extends StatelessWidget {
             MaterialPageRoute(builder: (context) => TelaCadastro()),
           );
         },
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.indigo,
         child: Icon(Icons.child_care_outlined, color: Colors.white),
       ),
     );
@@ -111,7 +111,14 @@ class TelaCadastro extends StatelessWidget {
                           child: Icon(Icons.delete_forever, color: Colors.red),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Produto p = Produto(
+                              _controllernome.text,
+                              _controlerquant.text,
+                              _controllerpreco.text,
+                            );
+                            Navigator.pop(context, p);
+                          },
                           child: Icon(Icons.send),
                         ),
                       ],
@@ -125,14 +132,19 @@ class TelaCadastro extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => TelaInicial()),
-          );
+          Navigator.pop(context);
         },
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.indigo,
         child: Icon(Icons.child_care_outlined, color: Colors.white),
       ),
     );
   }
+}
+
+class Produto {
+  String nome;
+  String quant;
+  String preco;
+
+  Produto(this.nome, this.quant, this.preco);
 }
